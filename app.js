@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 
 
 var youTube = require('./routes/youTubeService');
+var youTubeDL = require('./routes/youTubeDL');
 var elastic = require('./routes/elasticService');
 
 var app = express();
@@ -33,6 +34,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get("/api/youTube", getYouTubeInfo);
+app.get("/api/youTubeDL", getYouTubeDLInfo);
 app.get('*',  function(req, res) {
    res.redirect('/');
 });
@@ -63,6 +65,12 @@ app.use(function(err, req, res, next) {
 function getYouTubeInfo(req, res) {
     var ytLink = req.query.id;
     youTube.getYouTubeInfo(req, res, ytLink);
-}
+};
+
+function getYouTubeDLInfo(req, res) {
+    var ytLink = req.query.url;
+    console.log('ytLink', ytLink);
+    youTubeDL.getYouTubeDLInfo(req, res, ytLink);
+};
 
 module.exports = app;
