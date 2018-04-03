@@ -1,12 +1,15 @@
 var request=require('request');
 
 /*const ytURLPrefix = 'https://www.youtube.com/oembed?format=json&url=https://www.youtube.com/watch?v=G1gC912LUq0';*/
-const ytURLPrefix = 'https://www.youtube.com/oembed?format=json&url=';
+/*const ytURLPrefix = 'https://www.youtube.com/oembed?format=json&url=';*/
 
-exports.getYouTubeInfo = function(req, res, url) {
+const ytURLPrefix = 'https://www.googleapis.com/youtube/v3/videos?key=';
+const ytURLPostfix = '&part=snippet&id=uM3YROq_cLY';
+
+exports.getYouTubeInfo = function(req, res, id, api) {
 
   const options = {
-      url: ytURLPrefix + url,
+      url: ytURLPrefix + api + ytURLPostfix + ytURLPostfix,
       method: 'GET',
   }
 
@@ -19,7 +22,7 @@ exports.getYouTubeInfo = function(req, res, url) {
     if(res.statusCode !== 200 ) {
       console.log('response', res);
     }
-    res.send(JSON.parse(body));
+    res.send(body);
   });
 }
 

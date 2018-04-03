@@ -5,9 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-
-
-
 var youTube = require('./routes/youTubeService');
 var youTubeDL = require('./routes/youTubeDL');
 var elastic = require('./routes/elasticService');
@@ -21,9 +18,6 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();
 });
-
-console.log(process.env.YT);
-
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -65,9 +59,11 @@ app.use(function(err, req, res, next) {
   res.send('error');
 });
 
+
+
 function getYouTubeInfo(req, res) {
     var ytLink = req.query.id;
-    youTube.getYouTubeInfo(req, res, ytLink);
+    youTube.getYouTubeInfo(req, res, ytLink, process.env.YT);
 };
 
 function getYouTubeDLInfo(req, res) {
