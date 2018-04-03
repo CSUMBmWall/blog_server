@@ -11,7 +11,7 @@ var bodyParser = require('body-parser');
 var youTube = require('./routes/youTubeService');
 var youTubeDL = require('./routes/youTubeDL');
 var elastic = require('./routes/elasticService');
-
+var ytAuth = require('./oAuth');
 var app = express();
 
 app.use(function (req, res, next) {
@@ -21,6 +21,8 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();
 });
+
+console.log(process.env.YT);
 
 
 // uncomment after placing your favicon in /public
@@ -35,6 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get("/api/youTube", getYouTubeInfo);
 app.get("/api/youTubeDL", getYouTubeDLInfo);
+/*app.use("/api/oath", ytAuth);*/
 app.get('*',  function(req, res) {
    res.redirect('/');
 });

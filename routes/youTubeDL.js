@@ -1,20 +1,17 @@
 var fs = require('fs');
-var youtubedl = require('youtube-dl');
+var ytdl = require('ytdl-core');
+
+
 
 exports.getYouTubeDLInfo = function(req, res, url) {
-    /*var video = youtubedl('http://www.youtube.com/watch?v=90AiXO1pAiA',
-        // Optional arguments passed to youtube-dl.
-        ['--format=18'],
-        // Additional options can be given for calling `child_process.execFile()`.
-        { cwd: __dirname });
+    ytdl.getInfo(url, function(err, info) {
+        if (err) throw err;
+        var format = ytdl.chooseFormat(info.formats, { quality: '134' });
+        if (format) {
+            console.log('Format found!', format);
+            res.send(format);
+        }
+    })
 
-// Will be called when the download starts.
-    video.on('info', function(info) {
-        console.log('Download started');
-        console.log('filename: ' + info.filename);
-        console.log('size: ' + info.size);
-    });
-
-    video.pipe(fs.createWriteStream('myvideo.mp4'));*/
-    res.send({msg: 'success'});
+    // res.send({msg: 'success'});
 };
