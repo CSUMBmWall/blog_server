@@ -1,6 +1,7 @@
 var fs = require('fs');
 var ytdl = require('ytdl-core');
 var youtubedl = require('youtube-dl');
+var ffmpeg = require('ffmpeg');
 
 
 /*exports.getYouTubeDL = function(req, res, url) {
@@ -16,16 +17,29 @@ var youtubedl = require('youtube-dl');
     // res.send({msg: 'success'});
 };*/
 
-
-
 exports.getYouTubeDL = function(req, res, url) {
-    var url = 'https://www.youtube.com/watch?v=uM3YROq_cLY';
-
-// pass ['-f', 'bestaudio'] || ['-f', 'm4a'] for other formats with yt
 
     youtubedl.exec(url, ['-x', '--audio-format', 'mp3'], {}, function exec(err, output) {
         'use strict';
         if (err) { throw err; }
         console.log(output.join('\n'));
+        res.send({status: output.join('\n')});
     });
+   /* var testFile = 'Blaze Foley - Clay Pigeons.webm';
+    var newFile = 'Blaze Foley - Clay Pigeons.mp3';
+    try {
+        var process = new ffmpeg(testFile);
+        process.then(function (video) {
+            // Callback mode
+            video.fnExtractSoundToMP3(newFile, function (error, file) {
+                if (!error)
+                    console.log('Audio file: ' + file);
+            });
+        }, function (err) {
+            console.log('Error: ' + err);
+        });
+    } catch (e) {
+        console.log(e.code);
+        console.log(e.msg);
+    }*/
 };
