@@ -13,7 +13,7 @@ exports.getYouTubeInfo = function(req, res, id, api) {
       method: 'GET',
   }
 
-  console.log(options);
+  /*console.log(options);*/
 
   request.get(options, function(err, response, body) {
     if(err) {

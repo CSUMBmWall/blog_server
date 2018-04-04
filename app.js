@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var youTube = require('./routes/youTubeService');
+var youTube = require('./routes/youTubeInfoService');
 var youTubeDL = require('./routes/youTubeDL');
 var elastic = require('./routes/elasticService');
 var ytAuth = require('./oAuth');
@@ -29,8 +29,8 @@ app.use(cookieParser());
 /*app.use(app.router);*/
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get("/api/youTube", getYouTubeInfo);
-app.get("/api/youTubeDL", getYouTubeDLInfo);
+app.get("/api/youTubeInfo", getYouTubeInfo);
+app.get("/api/youTubeDL", getYouTubeDL);
 /*app.use("/api/oath", ytAuth);*/
 app.get('*',  function(req, res) {
    res.redirect('/');
@@ -66,10 +66,10 @@ function getYouTubeInfo(req, res) {
     youTube.getYouTubeInfo(req, res, ytLink, process.env.YT);
 };
 
-function getYouTubeDLInfo(req, res) {
+function getYouTubeDL(req, res) {
     var ytLink = req.query.url;
     console.log('ytLink', ytLink);
-    youTubeDL.getYouTubeDLInfo(req, res, ytLink);
+    youTubeDL.getYouTubeDL(req, res, ytLink);
 };
 
 module.exports = app;
