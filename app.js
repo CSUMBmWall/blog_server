@@ -5,10 +5,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var youTube = require('./routes/youTubeInfoService');
-var youTubeDL = require('./routes/youTubeDL');
-var elastic = require('./routes/elasticService');
+var youTube = require('./services/youTubeInfoService');
+var youTubeDL = require('./services/youTubeDLService');
+var elastic = require('./services/elasticService');
 var ytAuth = require('./oAuth');
+var ID3 = require ('./services/ID3TagService');
+
+
 var app = express();
 
 app.use(function (req, res, next) {
@@ -31,6 +34,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get("/api/youTubeInfo", getYouTubeInfo);
 app.get("/api/youTubeDL", getYouTubeDL);
+app.get("/api/getID3Tags", getID3Tags);
+app.post("/api/setID3Tags", setID3Tags);
+
 /*app.use("/api/oath", ytAuth);*/
 app.get('*',  function(req, res) {
    res.redirect('/');
@@ -67,9 +73,17 @@ function getYouTubeInfo(req, res) {
 };
 
 function getYouTubeDL(req, res) {
-    var ytLink = req.query.url;
-    console.log('ytLink', ytLink);
-    youTubeDL.getYouTubeDL(req, res, ytLink);
+    youTubeDL.getYouTubeDL(req, res);
 };
+
+function getID3Tags(req, res) {
+    ID3.getID3Tags(req, res);
+}
+
+function setID3Tags(req, res) {
+    console.log(req.query);
+    res.send({query: req.query});
+    /*ID3.setID3Tags(req, res);*/
+}
 
 module.exports = app;
