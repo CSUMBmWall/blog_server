@@ -1,6 +1,8 @@
 const NodeID3 = require('node-id3');
 
-file = "D:\\Music\\Jerry Lee Lewis\\Jerry Lee Lewis - Anthology (All Killer No Filler) Disc 1 - Crazy Arms.mp3"
+/*file = "D:\\Music\\Jerry Lee Lewis\\Jerry Lee Lewis - Anthology (All Killer No Filler) Disc 1 - Crazy Arms.mp3"*/
+file = "C:\\Users\\Matt\\Downloads\\Music\\Van Morrison\\Van Morrison - " +
+    "It's Too Late To Stop Now Disc 1 - Caravan (Live At The Troubadour).mp3";
 
 
 
