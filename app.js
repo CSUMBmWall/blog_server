@@ -10,6 +10,7 @@ var youTubeDL = require('./services/youTubeDLService');
 var elastic = require('./services/elasticService');
 var ytAuth = require('./oAuth');
 var ID3 = require ('./services/ID3TagService');
+var urlTitle = require ('./services/urlTitleService');
 
 
 var app = express();
@@ -36,6 +37,7 @@ app.get("/api/youTubeInfo", getYouTubeInfo);
 app.get("/api/youTubeDL", getYouTubeDL);
 app.get("/api/getID3Tags", getID3Tags);
 app.post("/api/setID3Tags", setID3Tags);
+app.get("/api/urlTitle", getURLTitle);
 
 /*app.use("/api/oath", ytAuth);*/
 app.get('*',  function(req, res) {
@@ -83,7 +85,10 @@ function getID3Tags(req, res) {
 function setID3Tags(req, res) {
     console.log(req.query);
     res.send({query: req.query});
-    /*ID3.setID3Tags(req, res);*/
+}
+
+function getURLTitle(req, res) {
+    urlTitle.getYouTubeDL(req, res);
 }
 
 module.exports = app;
